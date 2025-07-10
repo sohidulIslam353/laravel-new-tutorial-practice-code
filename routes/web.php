@@ -12,7 +12,11 @@ Route::get('/', function () {
 });
 
 //  Routes of shop page
-
-Route::get('/shop-list', [ShopController::class, 'index'])->name('shop.index');
-Route::get('/shop-create', [ShopController::class, 'create'])->name('shop.create');
-Route::post('/shop-store', [ShopController::class, 'store'])->name('shop.store');
+Route::prefix('/shop')->name('shop.')->group(function () {
+    Route::get('/list', [ShopController::class, 'index'])->name('index');
+    Route::get('/create', [ShopController::class, 'create'])->name('create');
+    Route::post('/store', [ShopController::class, 'store'])->name('store');
+    Route::get('/edit/{id}', [ShopController::class, 'edit'])->name('edit');
+    Route::put('/update/{id}', [ShopController::class, 'update'])->name('update');
+    Route::delete('/destroy/{id}', [ShopController::class, 'destroy'])->name('destroy');
+});

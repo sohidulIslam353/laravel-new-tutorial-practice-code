@@ -7,7 +7,7 @@
 <a href="{{ route('shop.index') }}" class="btn btn-primary mb-3">Shop List</a> 
 
 
- <!-- Display success message if available -->
+   <!-- Display success message if available -->
     @if (session('success'))
         <div class="alert alert-success">
             {{ session('success') }}

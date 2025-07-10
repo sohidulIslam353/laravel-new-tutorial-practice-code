@@ -2,6 +2,13 @@
 @section('content')
 
 <div class="container mt-4">
+<!-- Display success message if available -->
+@if (session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
+
 <h4>Shop List</h4>
 
 <a href="{{ route('shop.create') }}" class="btn btn-success mb-3">Add New Shop</a> 
@@ -29,8 +36,15 @@
       <td>{{ $shop->shop_email }}</td>
       <td>{{ $shop->tin_number }}</td>
       <td>
-        <a href="#" class="btn btn-primary">Edit</a>
-        <a href="#" class="btn btn-danger">Delete</a>
+        <a href="{{ route('shop.edit',$shop->id) }}" class="btn btn-primary">Edit</a>
+        {{-- <a href="{{ route('shop.destroy',$shop->id) }}"  class="btn btn-danger">Delete</a> --}}
+        <form action="{{ route('shop.destroy', $shop->id) }}" method="POST" style="display: inline;" onsubmit="return confirm('Are you sure you want to delete this shop?');">
+          @csrf
+          @method('DELETE')
+          <button type="submit" class="btn btn-danger">Delete</button>
+      </form>
+      </td>
+
     </tr>
   @endforeach
   </tbody>
