@@ -14,3 +14,5 @@ Route::get('/', function () {
 //  Routes of shop page
 
 Route::get('/shop-list', [ShopController::class, 'index'])->name('shop.index');
+Route::get('/shop-create', [ShopController::class, 'create'])->name('shop.create');
+Route::post('/shop-store', [ShopController::class, 'store'])->name('shop.store');

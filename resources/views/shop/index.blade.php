@@ -4,7 +4,7 @@
 <div class="container mt-4">
 <h4>Shop List</h4>
 
-<a href="#" class="btn btn-success mb-3">Add New Shop</a> 
+<a href="{{ route('shop.create') }}" class="btn btn-success mb-3">Add New Shop</a> 
 
 <div class="mb-3">
   <table class="table">
