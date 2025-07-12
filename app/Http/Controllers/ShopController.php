@@ -12,9 +12,26 @@ class ShopController extends Controller
     public function index()
     {
         // read data from database table
-        $shopLists = DB::table('shops')->get();
+        // $shopLists = DB::table('shops')
+        //     // ->select('shop_name', 'shop_phone', 'tin_number')
+        //     ->get();
 
-        return view('shop.index', compact('shopLists'));
+        $orderData = DB::table('users')
+            ->crossJoin('orders', 'users.id', 'orders.user_id')
+            ->get();
+        return $orderData;
+
+        // // order_products ==  order_id , product_id , qty
+
+        // $orderdData=DB::table('orders')
+        //             ->join('users','orders.user_id','=','users.id')  // customer name
+        //             ->join('order_products','orders.id','=','order_products.order_id') // ki ki products order koreche
+        //             ->join('products','order_products.product_id','=','products.id')  // products name slug image
+        //             ->get();
+
+
+
+        //  return view('shop.index', compact('shopLists'));
     }
 
     // create shop
