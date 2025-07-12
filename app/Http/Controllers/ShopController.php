@@ -9,29 +9,25 @@ use Illuminate\Support\Facades\Log;
 class ShopController extends Controller
 {
     // shop list
-    public function index()
+    public function index(Request $request)
     {
+        $shopCount = DB::table('shops')->count();
+
         // read data from database table
-        // $shopLists = DB::table('shops')
-        //     // ->select('shop_name', 'shop_phone', 'tin_number')
-        //     ->get();
+        $query = DB::table('shops')->orderBy('id');
 
-        $orderData = DB::table('users')
-            ->crossJoin('orders', 'users.id', 'orders.user_id')
-            ->get();
-        return $orderData;
+        if ($search = $request->search) {
+            $query->where(function ($q) use ($search) {
+                $q->where('shop_name', 'like', '%' . $search . '%')
+                    ->orWhere('shop_number', 'like', '%' . $search . '%')
+                    ->orWhere('shop_email', 'like', '%' . $search . '%')
+                    ->orWhere('tin_number', 'like', '%' . $search . '%');
+            });
+        }
 
-        // // order_products ==  order_id , product_id , qty
+        $shopLists = $query->cursorPaginate(12)->appends(['search' => $request->search]);
 
-        // $orderdData=DB::table('orders')
-        //             ->join('users','orders.user_id','=','users.id')  // customer name
-        //             ->join('order_products','orders.id','=','order_products.order_id') // ki ki products order koreche
-        //             ->join('products','order_products.product_id','=','products.id')  // products name slug image
-        //             ->get();
-
-
-
-        //  return view('shop.index', compact('shopLists'));
+        return view('shop.index', compact('shopLists', 'shopCount'));
     }
 
     // create shop
