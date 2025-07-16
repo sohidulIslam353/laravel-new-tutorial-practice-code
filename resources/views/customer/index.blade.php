@@ -30,6 +30,8 @@
       <th scope="col">Email</th>
       <th scope="col">Phone</th>
       <th scope="col">Register Time</th>
+      <th scope="col">DOB</th>
+      <th scope="col">Status</th>
       <th scope="col">Action</th>
     </tr>
   </thead>
@@ -41,6 +43,14 @@
       <td>{{ $customer->phone }}</td>
       <td>{{ $customer->email }}</td>
       <td>{{ date('d F ,Y', strtotime($customer->created_at)) }}</td>
+      <td>{{ $customer->customer_detail->dob }}</td>
+      <td>
+        @if($customer->deleted_at != null)
+          <span class="badge bg-danger">Deleted</span>
+        @else    
+          <span class="badge bg-success">Active</span>
+        @endif 
+      </td>
       <td>
         <a href="{{ route('customer.edit',$customer->id) }}" class="btn btn-primary">Edit</a>
         <form action="{{ route('customer.destroy', $customer->id) }}" method="POST" style="display: inline;" onsubmit="return confirm('Are you sure you want to delete this shop?');">

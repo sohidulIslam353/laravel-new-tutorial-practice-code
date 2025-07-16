@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Customer;
+use App\Models\CustomerDetail;
+use App\Models\Scopes\OnlyActiveCustomers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CustomerController extends Controller
 {
@@ -12,10 +15,11 @@ class CustomerController extends Controller
      */
     public function index(Request $request)
     {
+
         $customerCount = Customer::count();
 
         // read data from database table
-        $query = Customer::orderBy('id');
+        $query = Customer::with('customer_detail:customer_id,dob,address')->withTrashed()->orderBy('id');
 
         if ($search = $request->search) {
             $query->where(function ($q) use ($search) {
@@ -26,6 +30,7 @@ class CustomerController extends Controller
         }
 
         $customers = $query->cursorPaginate(12)->appends(['search' => $request->search]);
+
 
         return view('customer.index', compact('customers', 'customerCount'));
     }
@@ -61,6 +66,7 @@ class CustomerController extends Controller
         $customer->name = $request->name;
         $customer->phone = $request->phone;
         $customer->email = $request->email;
+        $customer->status = 'active';
         $customer->save();
 
         return redirect()->back()->with('success', 'Customer created successfully');

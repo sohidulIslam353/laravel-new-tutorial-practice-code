@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\Customer;
+use App\Models\User;
+use App\Observers\CustomerObserver;
 use App\Services\MyLogger;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Log;
@@ -27,5 +30,6 @@ class AppServiceProvider extends ServiceProvider
     {
 
         Paginator::useBootstrap();
+        Customer::observe(CustomerObserver::class);
     }
 }

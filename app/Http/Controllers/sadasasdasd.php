@@ -10,7 +10,6 @@ class CustomerController extends Controller
     // customer list
     public function index(Request $request)
     {
-
         $customerCount = Customer::count();
 
         // read data from database table
