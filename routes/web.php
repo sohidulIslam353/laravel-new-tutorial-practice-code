@@ -38,3 +38,4 @@ Route::prefix('/shop')->name('shop.')->group(function () {
 Route::resource('customer', CustomerController::class);
 
 Route::get('/assign-course/{id}', [PostController::class, 'assignCourse'])->name('assign.course');
+Route::get('/join-check}', [PostController::class, 'check'])->name('check.join');

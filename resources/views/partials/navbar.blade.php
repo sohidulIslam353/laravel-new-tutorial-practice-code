@@ -15,6 +15,10 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('customer.index') }}">Our Customers</a>
                 </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('check.join') }}">Check Join</a>
+                </li>
             </ul>
             </div>
         </div>
