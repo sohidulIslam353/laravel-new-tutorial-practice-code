@@ -2,8 +2,10 @@
 
 
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\ShopController;
 use Illuminate\Support\Facades\Route;
+
 
 
 
@@ -34,3 +36,5 @@ Route::prefix('/shop')->name('shop.')->group(function () {
 // });
 
 Route::resource('customer', CustomerController::class);
+
+Route::get('/assign-course/{id}', [PostController::class, 'assignCourse'])->name('assign.course');

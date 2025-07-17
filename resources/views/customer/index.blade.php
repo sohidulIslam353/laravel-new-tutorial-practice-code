@@ -58,6 +58,7 @@
           @method('DELETE')
           <button type="submit" class="btn btn-danger">Delete</button>
       </form> 
+      <a href="{{ route('assign.course', $customer->id) }}" class="btn btn-success">Assign Course</a>
       </td>
     </tr>
     @empty 

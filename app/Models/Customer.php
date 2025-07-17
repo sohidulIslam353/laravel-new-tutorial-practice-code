@@ -36,4 +36,10 @@ class Customer extends Model
     {
         return $this->hasOne(CustomerDetail::class, 'customer_id', 'id');  // foreignkey , localkey
     }
+
+    // retrive all posts
+    public function posts()
+    {
+        return $this->hasMany(Post::class, 'customer_id', 'id');
+    }
 }
