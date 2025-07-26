@@ -7,9 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 class Post extends Model
 {
 
+    protected $fillable = ['title', 'description'];
 
-    public function customer()
+    public function comments()
     {
-        return $this->belongsTo(Customer::class, 'customer_id', 'id');
+        return $this->morphMany(Comment::class, 'commentable');
+    }
+
+    public function tags()
+    {
+        return $this->morphToMany(Tag::class, 'taggable');
     }
 }
